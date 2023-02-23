@@ -1,10 +1,9 @@
-
-
+import { initDriver, getDriver, closeDriver } from './config/db.js'
 import conn from '../config/db.js'
-const driver = conn.Neo4j()
+
+const driver = getDriver()
 
 const register = async (userId) => {
-    const driver = Neo4j()
     const session = driver.session()
     try {
         const res = await session.executeWrite(
@@ -30,6 +29,7 @@ const register = async (userId) => {
     }
     catch (e) {
         if (e.code === 'Neo.ClientError.Schema.ConstraintValidationFailed') {
+            console.log('User already exists')
         }
     }
     finally {
