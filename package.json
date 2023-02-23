@@ -1,0 +1,23 @@
+{
+  "name": "learning-neo4j",
+  "version": "1.0.0",
+  "description": "Simple project to learn neo4j",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.js"
+  },
+  "author": "Ayush kumar",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.32.0",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "neo4j-driver": "^5.5.0"
+  }
+}
