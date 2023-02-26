@@ -16,8 +16,6 @@ export default class UserServices {
             if (e.code === 'Neo.ClientError.Schema.ConstraintValidationFailed') {
                 console.log('User already exists')
             }
-        } finally {
-            // await session.close()
         }
     }
     
@@ -34,8 +32,6 @@ export default class UserServices {
         }
         catch (e) {
             throw new Error(e)
-        } finally {
-            // await session.close()
         }
     }
     
@@ -50,8 +46,6 @@ export default class UserServices {
             )
         } catch (e) {
             throw new Error(e)
-        } finally {
-            // await session.close()
         }
     }
     
@@ -65,8 +59,6 @@ export default class UserServices {
             )
         } catch (e) {
             throw new Error(e)
-        } finally {
-            // await session.close()
         }
     }
     
@@ -74,21 +66,20 @@ export default class UserServices {
         const session = this.driver.session() 
         const timestamp = Date(Date.now())
         try {
-            const result = await session.executeWrite(
+            return await session.executeWrite(
                 tx => tx.run(
                     `
-                    MERGE (currentUser:User {userId: $currentUser})
-                    MERGE (user:User {userId: $userId})
-                    MERGE (currentUser)-[r:FOLLOW {timestamp: $timestamp}]->(user)
-                    RETURN currentUser
-                `, { currentUser, userId, timestamp}
+                    MATCH (currentUser:User {userId: $currentUser})
+                    MATCH (user:User {userId: $userId})
+                    MERGE (currentUser)-[r:FOLLOW]->(user)
+                    ON MATCH 
+                        SET r.timestamp = $timestamp
+                    RETURN r
+                    `, { currentUser, userId, timestamp }
                 )
             )
-            return true
         } catch (error) {
             throw new Error(error)
-        } finally {
-            // await session.close()
         }
     }
     
@@ -106,8 +97,6 @@ export default class UserServices {
             return true
         } catch (error) {
             throw new Error(error)
-        } finally {
-            // await session.close()
         }
     }
 }

@@ -64,7 +64,8 @@ router.get('/follow/:currentUser/:userId', async (req, res) => {
 
     userServices.follow(req.params.currentUser, req.params.userId)
     .then((result) => {
-        const message = result ? 'done' : 'Something went wrong!'
+        console.log(result.records)
+        const message = result.records[0] ? 'done' : 'Something went wrong!'
         res.send(message)
     }).catch((err) => {
         console.log(`err = ${err}`)
