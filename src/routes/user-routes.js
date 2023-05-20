@@ -34,10 +34,14 @@ router.get('/delete-user/:userId', (req, res) => {
 })
 
 router.get('/followers/:userId', (req, res) => {
+    let follower = []
     const userServices = new UserServices(getDriver())
 
     userServices.followers(req.params.userId)
     .then((result) => {
+        result.records.forEach(element => {
+            follower.push(element._fields[0].properties)
+        })
         res.send(result.records[0]._fields[0].properties)
     }).catch((err) => {
         console.log(`err = ${err}`)
