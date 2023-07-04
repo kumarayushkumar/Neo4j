@@ -1,6 +1,6 @@
 # Learning Neo4j
 
-## Simple project to learn Neo4j
+## Neo4j crud operations
 
 /create-user/:userId - Create a user with the given userId
 
