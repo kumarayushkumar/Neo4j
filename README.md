@@ -1,4 +1,4 @@
-# Learning Neo4j
+# Neo4j
 
 ## Neo4j crud operations
 
